@@ -6,34 +6,33 @@ class Countdown {
         this.specificDay = new Date();
     }
 
+    addZero(number) {
+        return number  <= 9 ? '0' + number : number;
+    }
+
     getText() {
         this.specificDay.setDate(10);
-        this.specificDay.setHours(18);
-        this.specificDay.setMinutes(0);
-        this.specificDay.setSeconds(0);
+        this.specificDay.setHours(18, 0, 0);
 
         let days = this.specificDay.getDate() - this.now.getDate();
         let diffrence = this.specificDay.getTime() - this.now.getTime();
 
-        let hours = Math.floor(diffrence % 86400000 / 3600000)
-        let minutes = Math.floor(diffrence % 3600000 / 60000);
-
-        console.log(hours);
-
-        let text = '';
+        let hours = this.addZero(Math.floor(diffrence % 86400000 / 3600000));
+        let minutes = this.addZero(Math.floor(diffrence % 3600000 / 60000));
+        let seconds = this.addZero(Math.floor(diffrence % 60000 / 1000));
 
         switch(days) {
             case 0:
-                // text = 'Nog ' + hours + ':' + minutes + ':' + seconds;
+                this.text = 'Nog ' + hours + ':' + minutes + ':' + seconds;
                 break;
             case 1:
-                // text = 'Nog 1 dagen en ' + hours + ':' + minutes + ':' + seconds;
+                this.text = 'Nog 1 dag en ' + hours + ':' + minutes + ':' + seconds;
                 break;
             default:
-                text = 'Nog ' + days + ' dagen';
+                this.text = 'Nog ' + days + ' dagen';
         }
 
-        return text;
+        return this.text;
     }
 
     showCountdown() {        
