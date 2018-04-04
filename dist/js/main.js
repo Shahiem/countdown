@@ -38,9 +38,6 @@
       let timeSeconds = this.addZero(Math.floor(timeMs % 60000 / 1000));
 
       switch(daysLeft) {
-        case 'undefined':
-          this.element.textContent = 'd';
-          break;
         case 0:
           this.element.textContent = 'Nog ' + timeHours + ':' + timeMinutes + ':' + timeSeconds; // Day 10
           break;
