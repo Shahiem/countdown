@@ -1,0 +1,22 @@
+{
+  "name": "countdown",
+  "version": "1.0.0",
+  "description": "A countdown timer in JavaScript. ",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shahiem Seymor",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "2.6.5",
+    "gulp-autoprefixer": "2.1.0",
+    "gulp-concat": "2.5.2",
+    "gulp-plumber": "1.0.0",
+    "gulp-rename": "1.2.2",
+    "gulp": "3.9.1"
+  },
+  "dependencies": {
+    "gulp-uglify-es": "^1.0.1"
+  }
+}
