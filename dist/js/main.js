@@ -2,43 +2,50 @@ class Countdown {
     constructor(identifier) {
         this.identifier = identifier;
         this.element = document.querySelector('.countdown');
-        this.now = new Date();
-        this.specificDay = new Date();
+        this.countSecond = 0;
+
+        this.interval = setInterval(
+            this.draw.bind(this), 
+            1000
+        );
     }
 
     addZero(number) {
         return number  <= 9 ? '0' + number : number;
     }
+    
+    draw() {   
+        this.countSecond++;
 
-    getText() {
-        this.specificDay.setDate(10);
-        this.specificDay.setHours(18, 0, 0);
+        let now = new Date();
+        
+        let specificDay = new Date();
+        specificDay.setDate(10);
+        specificDay.setHours(18, 0, 0);
 
-        let days = this.specificDay.getDate() - this.now.getDate();
-        let diffrence = this.specificDay.getTime() - this.now.getTime();
-
+        let days = specificDay.getDate() - now.getDate();
+        let diffrence = specificDay.getTime() - now.getTime();
+        
+        // Times
         let hours = this.addZero(Math.floor(diffrence % 86400000 / 3600000));
         let minutes = this.addZero(Math.floor(diffrence % 3600000 / 60000));
         let seconds = this.addZero(Math.floor(diffrence % 60000 / 1000));
 
         switch(days) {
             case 0:
-                this.text = 'Nog ' + hours + ':' + minutes + ':' + seconds;
+                this.element.textContent = 'Nog ' + hours + ':' + minutes + ':' + seconds;
                 break;
             case 1:
-                this.text = 'Nog 1 dag en ' + hours + ':' + minutes + ':' + seconds;
+                this.element.textContent = 'Nog 1 dag en ' + hours + ':' + minutes + ':' + seconds;
                 break;
             default:
-                this.text = 'Nog ' + days + ' dagen';
+                this.element.textContent = 'Nog ' + days + ' dagen';
         }
 
-        return this.text;
-    }
-
-    showCountdown() {        
-       this.element.textContent = this.specificDay >= this.now ? this.getText() : 'Def';
+        if (this.countSecond >= 30) {
+            clearInterval(this.interval);
+        }
     }
 }
 let clock = new Countdown('.countdown');
 
-clock.showCountdown();
