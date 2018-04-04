@@ -38,6 +38,9 @@
       let timeSeconds = this.addZero(Math.floor(timeMs % 60000 / 1000));
 
       switch(daysLeft) {
+        case 'undefined':
+          this.element.textContent = 'd';
+          break;
         case 0:
           this.element.textContent = 'Nog ' + timeHours + ':' + timeMinutes + ':' + timeSeconds; // Day 10
           break;
@@ -45,7 +48,7 @@
           this.element.textContent = 'Nog 1 dag en ' + timeHours + ':' + timeMinutes + ':' + timeSeconds; // Day 9
           break;
         default:
-          this.element.textContent = 'Nog ' + daysLeft + ' dagen'; // Day < 9
+          this.element.textContent = daysLeft > 0 ? 'Nog ' + daysLeft + ' dagen' : ''; // Day < 9
       }
 
       // Clear timer after 30 seconds
