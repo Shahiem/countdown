@@ -1,7 +1,6 @@
 class Countdown {
     constructor(identifier) {
-        this.identifier = identifier;
-        this.element = document.querySelector('.countdown');
+        this.element = document.querySelector(identifier);
         this.countSecond = 0;
 
         this.interval = setInterval(
