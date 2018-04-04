@@ -1,4 +1,10 @@
-class Countdown {
+/**
+ * CountdownTimer v1.0.0
+ * Copyright 2018 Shahiem Seymor (shahiemseymor.com)
+ * Licensed under MIT (http://opensource.org/licenses/MIT)
+ */
+
+ class Countdown {
     constructor(identifier) {
       this.element = document.querySelector(identifier);
       this.intervalCounter = 0;
