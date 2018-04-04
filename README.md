@@ -1,6 +1,7 @@
 # Countdown :watch:
 A countdown timer in JavaScript.
 
+[Demo](https://shahiem.github.io/countdown/)
 
 ### Install
 
