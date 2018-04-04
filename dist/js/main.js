@@ -10,7 +10,7 @@ class Countdown {
     }
 
     addZero(number) {
-      return number  <= 9 ? '0' + number : number;
+      return number  <= 9 ? '0' + number : number; // Add a zero before a number below 10xs
     }
     
     drawTimer() {   
@@ -18,7 +18,7 @@ class Countdown {
 
       let startDate = new Date();
         
-      // Set spec
+      // Set date on 10th day of the current month
       let endDate = new Date();
       endDate.setDate(10);
       endDate.setHours(18, 0, 0);
