@@ -9,6 +9,15 @@
       this.element = document.querySelector(identifier);
       this.intervalCounter = 0;
 
+      this.startDate = new Date();
+        
+      // Set date on 10th day of the current month
+      this.endDate = new Date();
+      this.endDate.setDate(10);
+      this.endDate.setHours(18, 0, 0);
+
+      this.daysLeft = endDate.getDate() - startDate.getDate();
+
       this.intervalMethod = setInterval(
         this.drawTimer.bind(this), 
         1000
@@ -22,22 +31,13 @@
     drawTimer() {   
       this.intervalCounter++;
 
-      let startDate = new Date();
-        
-      // Set date on 10th day of the current month
-      let endDate = new Date();
-      endDate.setDate(10);
-      endDate.setHours(18, 0, 0);
-
-      let daysLeft = endDate.getDate() - startDate.getDate();
-
       // Calculate time diffrence
-      let timeMs = endDate.getTime() - startDate.getTime();
+      let timeMs = this.endDate.getTime() - this.startDate.getTime();
       let timeHours = this.addZero(Math.floor(timeMs % 86400000 / 3600000));
       let timeMinutes = this.addZero(Math.floor(timeMs % 3600000 / 60000));
       let timeSeconds = this.addZero(Math.floor(timeMs % 60000 / 1000));
 
-      switch(daysLeft) {
+      switch(this.daysLeft) {
         case 0:
           this.element.textContent = 'Nog ' + timeHours + ':' + timeMinutes + ':' + timeSeconds; // Day 10
           break;
@@ -45,11 +45,11 @@
           this.element.textContent = 'Nog 1 dag en ' + timeHours + ':' + timeMinutes + ':' + timeSeconds; // Day 9
           break;
         default:
-          this.element.textContent = daysLeft > 0 ? 'Nog ' + daysLeft + ' dagen' : ''; // Day < 9
+          this.element.textContent = daysLeft > 0 ? 'Nog ' + this.daysLeft + ' dagen' : ''; // Day < 9
       }
 
       // Empty text content when date has passed
-      if (startDate > endDate) {
+      if (this.startDate > this.endDate) {
         this.element.textContent = '';
       }
 
