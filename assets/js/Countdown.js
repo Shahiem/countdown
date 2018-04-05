@@ -16,7 +16,7 @@
     }
 
     addZero(number) {
-      return number  <= 9 ? '0' + number : number; // Add a zero before a number below 10xs
+      return number  <= 9 ? '0' + number : number; // Add a zero before a number below 10
     }
     
     drawTimer() {   
@@ -46,6 +46,11 @@
           break;
         default:
           this.element.textContent = daysLeft > 0 ? 'Nog ' + daysLeft + ' dagen' : ''; // Day < 9
+      }
+
+      // Empty text content when date has passed
+      if (startDate > endDate) {
+        this.element.textContent = '';
       }
 
       // Clear timer after 30 seconds
