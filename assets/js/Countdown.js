@@ -3,61 +3,58 @@
  * Copyright 2018 Shahiem Seymor (shahiemseymor.com)
  * Licensed under MIT (http://opensource.org/licenses/MIT)
  */
-
  class Countdown {
     constructor(identifier) {
       this.element = document.querySelector(identifier);
       this.intervalCounter = 0;
-
       this.startDate = new Date();
         
-      // Set date on 10th day of the current month
+       // Set date on 10th day of the current month
       this.endDate = new Date();
       this.endDate.setDate(10);
       this.endDate.setHours(0, 0, 0);
-
+  
       this.daysLeft = this.endDate.getDate() - this.startDate.getDate();
-
-      this.intervalMethod = setInterval(
-        this.drawTimer.bind(this), 
-        1000
-      );
+      this.drawCountdown(); // Call draw countdown method
     }
 
     addZero(number) {
       return number  <= 9 ? '0' + number : number; // Add a zero before a number below 10
     }
-    
-    drawTimer() {   
-      if (this.daysLeft <= 1) {
-        this.intervalCounter++;
 
-        // Count to 6pm on the last day
-        if (this.daysLeft == 0) {
-          this.endDate.setHours(18, 0, 0);
-        }
+    drawTimer() {
+      this.intervalCounter++;
 
-        // Calculate time diffrence
-        let timeMs = this.endDate.getTime() - this.startDate.getTime();
-        let timeHours = this.addZero(Math.floor(timeMs % 86400000 / 3600000));
-        let timeMinutes = this.addZero(Math.floor(timeMs % 3600000 / 60000));
-        let timeSeconds = this.addZero(Math.floor(timeMs % 60000 / 1000));
+      // Calculate time diffrence
+      let timeMs = this.endDate.getTime() - new Date().getTime();
+      let timeHours = this.addZero(Math.floor(timeMs % 86400000 / 3600000));
+      let timeMinutes = this.addZero(Math.floor(timeMs % 3600000 / 60000));
+      let timeSeconds = this.addZero(Math.floor(timeMs % 60000 / 1000));
+      let timer =  timeHours + ':' + timeMinutes + ':' + timeSeconds;
 
-        if (this.daysLeft == 0) {
-          this.element.textContent = 'Nog ' + timeHours + ':' + timeMinutes + ':' + timeSeconds; // Day 10
-        } else {
-          this.element.textContent = 'Nog 1 dag  en ' + timeHours + ':' + timeMinutes + ':' + timeSeconds; // Day 10
-        }
+      this.element.textContent = 'Nog ' + (this.daysLeft == 1 ? '1 dag en ' : '') + timer; // Day 9 & 10
 
-        // Clear timer after 30 seconds
-        if (this.intervalCounter >= 30) 
-          clearInterval(this.intervalMethod);
-      } else {
-        this.element.textContent = this.daysLeft > 0 ? 'Nog ' + this.daysLeft + ' dagen' : ''; // Day < 9
+      // Clear interval after 30 seconds
+      if (this.intervalCounter > 30)
+        clearInterval(this.intervalTimer);
+    }
+
+    drawCountdown() {
+      if (this.daysLeft == 0) {
+        this.endDate.setHours(18, 0, 0); // Count to 6pm on the last day
       }
+      
+      if (this.startDate < this.endDate) {
+        if (this.daysLeft <= 1) {
+          this.drawTimer(); // Start before interval
 
-      // Empty text content when date has passed
-      if (this.startDate > this.endDate)
-        this.element.textContent = '';
+          this.intervalTimer = setInterval(
+            this.drawTimer.bind(this),  // Bind this arguments in drawTimer method
+            1000
+          );
+        } else {
+          this.element.textContent = this.daysLeft > 0 ? 'Nog ' + this.daysLeft + ' dagen' : ''; // Day < 9
+        }
+      }
     }
 }
